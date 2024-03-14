@@ -34,7 +34,6 @@ struct Queue {
     int unqueue(){
         cnt = count();
         if (first == nullptr) {
-            cout << "Error! Queue is empty!" << endl;
             return -1;
         }
         int data = first->data;
