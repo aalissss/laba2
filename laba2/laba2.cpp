@@ -94,6 +94,7 @@ struct Queue {
                     prev->next = current->next;
                     current = current->next;
                     delete temp;
+                    cnt--;
                 }
                 else {
                     prev = current;
