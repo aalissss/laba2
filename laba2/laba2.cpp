@@ -55,24 +55,26 @@ struct Queue {
 
     //функция вставки перед каждым отрицательным числом элемента со значением 1
     void insertBeforeNegative() {
-        Node* temp = first;
-        if (temp->data < 0) {
-            Node* newNode = new Node();
-            newNode->data = 1;
-            newNode->next = temp;
-            first = temp;
-            cnt++;
-        }
-        while (temp != last) {
-            if (temp->next->data < 0) {
+        if (count() > 0) {
+            Node* temp = first;
+            if (temp->data < 0) {
                 Node* newNode = new Node();
                 newNode->data = 1;
-                newNode->next = temp->next;
-                temp->next = newNode;
-                temp = temp->next;
+                newNode->next = temp;
+                first = newNode;
                 cnt++;
             }
-            temp = temp->next;
+            while (temp != last) {
+                if (temp->next->data < 0) {
+                    Node* newNode = new Node();
+                    newNode->data = 1;
+                    newNode->next = temp->next;
+                    temp->next = newNode;
+                    temp = temp->next;
+                    cnt++;
+                }
+                temp = temp->next;
+            }
         }
     }
 
@@ -82,19 +84,22 @@ struct Queue {
             Node* temp = first;
             first = first->next;
             delete temp;
+            cnt--;
         }
-        Node* current = first->next;
-        Node* prev = first;
-        while (current != nullptr) {
-            if (current->data < 0) {
-                Node* temp = current;
-                prev->next = current->next;
-                current = current->next;
-                delete temp;
-            }
-            else {
-                prev = current;
-                current = current->next;
+        if (count() > 0) {
+            Node* current = first->next;
+            Node* prev = first;
+            while (current != nullptr) {
+                if (current->data < 0) {
+                    Node* temp = current;
+                    prev->next = current->next;
+                    current = current->next;
+                    delete temp;
+                }
+                else {
+                    prev = current;
+                    current = current->next;
+                }
             }
         }
     }
