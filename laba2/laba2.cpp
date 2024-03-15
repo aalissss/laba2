@@ -128,19 +128,38 @@ struct Queue {
         last = first = nullptr;
         cnt = 0;
     }
+
+    //функция преобразования списка в массив
+    int* listToArray() {
+        if (cnt > 0) {
+            int* arr;
+            int i = 0;
+            arr = new int[cnt];
+            while (first != nullptr) {
+                arr[i] = first->data;
+                first = first->next;
+                i++;
+            }
+            return arr;
+        }
+        else {
+            return nullptr;
+        }
+    }
 };
 
 //функция вывода очереди
 void printQueue(Queue q) {
-    Node* temp = q.first;
-    if (temp == nullptr) {
-        cout << "Queue is empty" << endl;
+    if (q.count() > 0) {
+        int *arr;
+        arr = q.listToArray();
+        for (int i = 0; i < q.count(); i++) {
+            cout << arr[i] << endl;
+        }
+        delete arr;
     }
     else {
-        while (temp != nullptr) {
-            cout << temp->data << endl;
-            temp = temp->next;
-        }
+        cout << "Queue is empty" << endl;
     }
 }
 
